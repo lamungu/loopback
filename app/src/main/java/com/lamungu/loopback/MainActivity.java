@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Range;
+import android.widget.SeekBar;
+import android.widget.Toast;
 
+import com.edmodo.rangebar.RangeBar;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -16,15 +20,25 @@ import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
+import kaaes.spotify.webapi.android.SpotifyApi;
+import kaaes.spotify.webapi.android.SpotifyService;
+import kaaes.spotify.webapi.android.models.Track;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 public class MainActivity extends Activity implements
         SpotifyPlayer.NotificationCallback, ConnectionStateCallback
 {
-    // TODO: Replace with your client ID
     private static final String CLIENT_ID = "bbf7e9839272464ab661f0b3782edcbd";
-    // TODO: Replace with your redirect URI
     private static final String REDIRECT_URI = "lamungu-loopback://oauth-callback";
 
+    private RangeBar mRangeBar;
+    private SpotifyApi mSpotifyApi;
     private Player mPlayer;
+    private SeekBar mSeekBar;
+    private String accessToken;
+    private long trackDuration;
 
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
@@ -52,6 +66,8 @@ public class MainActivity extends Activity implements
         if (requestCode == REQUEST_CODE) {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
+                mSpotifyApi = new SpotifyApi();
+                mSpotifyApi.setAccessToken(response.getAccessToken());
                 Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
                 Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
                     @Override
@@ -100,19 +116,71 @@ public class MainActivity extends Activity implements
     public void onLoggedIn() {
         Log.d("MainActivity", "User logged in");
 
-        mPlayer.playUri(null, "spotify:track:15m8SzMKI07WPEYF8afF58", 0, 0);
-
-        mPlayer.seekToPosition(new Player.OperationCallback() {
+        SpotifyService spotify = mSpotifyApi.getService();
+            spotify.getTrack("066vHJcFUBXby0mZKVfI6v", new Callback<Track>() {
             @Override
-            public void onSuccess() {
+            public void success(Track track, Response response) {
+                trackDuration = track.duration_ms;
+            }
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Album failure", error.toString());
+            }
+        });
+        mPlayer.playUri(null, "spotify:track:066vHJcFUBXby0mZKVfI6v", 0, 0);
 
+        mSeekBar = (SeekBar) findViewById(R.id.seekBar);
+        mRangeBar = (RangeBar) findViewById(R.id.rangeBar);
+        mRangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+            @Override
+            public void onIndexChangeListener(RangeBar rangeBar, int start, int end) {
+                Toast.makeText(getApplicationContext(), Integer.toString(start), Toast.LENGTH_SHORT).show();
+                this.seekToPosition(start*1000);
+            }
+            private void seekToPosition(int progress)
+            {
+                mPlayer.seekToPosition(new Player.OperationCallback() {
+                    @Override
+                    public void onSuccess() {
+                    }
+
+                    @Override
+                    public void onError(Error error) {
+                    }
+                }, progress
+                );
+            }
+        });
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Toast.makeText(getApplicationContext(), Integer.toString(progress), Toast.LENGTH_SHORT).show();
+                double seekPosition = trackDuration * (((double)progress)/100);
+                this.seekToPosition((int)seekPosition);
             }
 
             @Override
-            public void onError(Error error) {
-
+            public void onStartTrackingTouch(SeekBar seekBar) {
             }
-        }, 125000);
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                double seekPosition = trackDuration * (((double)seekBar.getProgress())/100);
+                this.seekToPosition((int)seekPosition);
+            }
+            public void seekToPosition(int progress)
+            {
+                mPlayer.seekToPosition(new Player.OperationCallback() {
+                    @Override
+                    public void onSuccess() {
+                    }
+
+                    @Override
+                    public void onError(Error error) {
+                    }
+                }, progress);
+            }
+        });
     }
 
     @Override

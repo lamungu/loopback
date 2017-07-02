@@ -21,6 +21,7 @@ android {
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
     flatDir {
         dirs 'libs'
     }
@@ -32,10 +33,15 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+    // Spotify Web Api
+    compile 'com.github.kaaes:spotify-web-api-android:0.4.1'
     // This library handles authentication and authorization
     compile 'com.spotify.android:auth:1.0.0-alpha'
-    compile 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
     // This library handles music playback
+    compile 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
+    // Double knob seekbar
+    compile 'com.edmodo:rangebar:1.0.0'
+    compile 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
