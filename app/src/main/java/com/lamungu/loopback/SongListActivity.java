@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.lamungu.loopback.adapters.SongListAdapter;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -86,21 +87,9 @@ public class SongListActivity extends Activity {
                     @Override
                     public void success(Playlist playlist, Response response) {
                         Pager<PlaylistTrack> tracks = playlist.tracks;
-                        Log.d("Size playlists", Integer.toString(tracks.items.size()));
-                        List<String> list = new ArrayList<String>();
-                        for (int i = 0; i < tracks.items.size(); i++) {
-                            PlaylistTrack item = tracks.items.get(i);
-                            Log.d("PlaylistTrack", item.track.name);
-                            list.add(item.track.name);
-                        }
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                                SongListActivity.this,
-                                android.R.layout.simple_list_item_1,
-                                list);
-                        mPlaylistTracksListView.setAdapter(arrayAdapter);
-
+                        SongListAdapter songListAdapter = new SongListAdapter(SongListActivity.this, 0, tracks.items);
+                        mPlaylistTracksListView.setAdapter(songListAdapter);
                     }
-
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(" playekalist", "feafae");
