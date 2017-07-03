@@ -33,6 +33,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+    // Image loading from URL
+    compile 'com.squareup.picasso:picasso:2.5.2'
     // Spotify Web Api
     compile 'com.github.kaaes:spotify-web-api-android:0.4.1'
     // This library handles authentication and authorization
