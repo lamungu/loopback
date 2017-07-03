@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edmodo.rangebar.RangeBar;
@@ -19,16 +22,31 @@ import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
+import com.squareup.picasso.Picasso;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends Activity implements
         SpotifyPlayer.NotificationCallback, ConnectionStateCallback
 {
     private static final String CLIENT_ID = "bbf7e9839272464ab661f0b3782edcbd";
     private static final String REDIRECT_URI = "lamungu-loopback://oauth-callback";
+    final Runnable checkMetadata = new Runnable(){
+        public void run() {
+            long position = mPlayer.getPlaybackState().positionMs;
+            Log.d("Playback spot", Long.toString(position));
+            if (position > loopEnd * 1000 && mPlayer.getPlaybackState().isPlaying) {
+                Log.d("Reached 10 seconds", Long.toString(position));
+                mPlayer.pause(null);
+                playbackHandler.removeCallbacks(this);
+            } else {
+                playbackHandler.postDelayed(this, TIME_DELAY);
+            }
+            // Set the text view to the current duration;
+            mDurationTextView.setText(getTimeFromMillis(position));
+        }
+    };
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
     private static final int REQUEST_CODE = 1337;
@@ -38,10 +56,14 @@ public class MainActivity extends Activity implements
 
     private Player mPlayer;
     private Metadata.Track currentTrack;
-    TextView mTextView;
-    ExecutorService threadPoolExecutor = Executors.newSingleThreadExecutor();
+    private int loopStart;
+    private int loopEnd;
+
+    ImageView mAlbumCoverImageView;
+    ImageButton mPlayImageButton;
+    TextView mDurationTextView;
+    TextView mTotalDurationTextView;
     Handler playbackHandler = new Handler();
-    Future checkMetadataFuture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +76,16 @@ public class MainActivity extends Activity implements
         builder.setScopes(new String[]{"user-read-private", "streaming"});
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
-        mTextView=(TextView)findViewById(R.id.duration);
+
+        mDurationTextView = (TextView) findViewById(R.id.duration);
+        mAlbumCoverImageView = (ImageView) findViewById(R.id.albumCover);
+        mPlayImageButton = (ImageButton) findViewById(R.id.playButton);
+        mTotalDurationTextView = (TextView) findViewById(R.id.totalDuration);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-
         // Check if result comes from the correct activity
         if (requestCode == REQUEST_CODE) {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
@@ -95,7 +120,24 @@ public class MainActivity extends Activity implements
             // Handle event type as necessary
             case kSpPlaybackNotifyMetadataChanged:
                 currentTrack = mPlayer.getMetadata().currentTrack;
+                mRangeBar.setTickCount((int)currentTrack.durationMs/1000 + 2);
+                mTotalDurationTextView.setText(getTimeFromMillis(currentTrack.durationMs));
+                Log.d("TickCount", Integer.toString((int)currentTrack.durationMs/1000 + 2));
+                Picasso.with(getApplicationContext()).load(currentTrack.albumCoverWebUrl).into(mAlbumCoverImageView);
                 Log.d("currentTrack", currentTrack.toString());
+                break;
+            case kSpPlaybackNotifyPlay:
+                Log.d("Playing", "Changing to pause image");
+                mPlayImageButton.setImageDrawable(getDrawable(android.R.drawable.ic_media_pause));
+                playbackHandler.removeCallbacks(checkMetadata);
+                playbackHandler.post(checkMetadata);
+                break;
+            case kSpPlaybackNotifyPause:
+                Log.d("Playing", "Changing to play image");
+                mPlayImageButton.setImageDrawable(getDrawable(android.R.drawable.ic_media_play));
+                break;
+            case kSpPlaybackNotifyAudioDeliveryDone:
+                playbackHandler.removeCallbacks(checkMetadata);
             default:
                 break;
         }
@@ -114,37 +156,34 @@ public class MainActivity extends Activity implements
     @Override
     public void onLoggedIn() {
         Log.d("MainActivity", "User logged in");
+        loopStart = 5;
+        loopEnd = 20;
+
         mPlayer.playUri(new Player.OperationCallback() {
             @Override
             public void onSuccess() {
-                final Runnable checkMetadata = new Runnable(){
-                    public void run() {
-                        if(mPlayer.getPlaybackState().positionMs > 10000 && mPlayer.getPlaybackState().isPlaying) {
-                            Log.d("Reached 10 seconds", Long.toString(mPlayer.getPlaybackState().positionMs));
-                            mPlayer.pause(null);
-                            playbackHandler.removeCallbacks(this);
-                        } else {
-                            playbackHandler.postDelayed(this, TIME_DELAY);
-                        }
-                    }
-                };
-                checkMetadataFuture = threadPoolExecutor.submit(checkMetadata);
-                playbackHandler.post(checkMetadata);
+
             }
 
             @Override
             public void onError(Error error) {
 
             }
-        }, "spotify:track:066vHJcFUBXby0mZKVfI6v", 0, 0);
-        Log.d("Playback State", mPlayer.getPlaybackState().toString());
+        }, "spotify:track:066vHJcFUBXby0mZKVfI6v", 0, loopStart * 1000);
         mRangeBar = (RangeBar) findViewById(R.id.rangeBar);
-        mRangeBar.setThumbIndices(5, 20);
+
+
+        mRangeBar.setThumbIndices(loopStart, loopEnd);
         mRangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
             @Override
             public void onIndexChangeListener(RangeBar rangeBar, int start, int end) {
-                Log.d("RangeBar", "Changed");
-                mPlayer.seekToPosition(null, start*1000);
+                Log.d("RangeBar", Integer.toString(start) + " - " + Integer.toString(end));
+                if (start != loopStart || end != loopEnd) {
+                    loopStart = start;
+                    loopEnd = end;
+
+                    mPlayer.seekToPosition(null, start*1000);
+                }
             }
         });
     }
@@ -167,5 +206,35 @@ public class MainActivity extends Activity implements
     @Override
     public void onConnectionMessage(String message) {
         Log.d("MainActivity", "Received connection message: " + message);
+    }
+
+    public void togglePlay(View view) {
+        Log.d("togglePlay", Long.toString(mPlayer.getPlaybackState().positionMs));
+        Log.d("MainActivity", Integer.toString(loopEnd*1000));
+        if (mPlayer.getPlaybackState().isPlaying) {
+            mPlayer.pause(null);
+        } else if (mPlayer.getPlaybackState().positionMs < loopEnd*1000){
+            mPlayer.resume(null);
+        } else {
+            Log.d("WTF", "BOOM");
+            Log.d("is playing?" , Boolean.toString(mPlayer.getPlaybackState().isPlaying));
+            mPlayer.seekToPosition(null, loopStart*1000);
+            mPlayer.resume(null);
+        }
+    }
+
+    public void toggleReset(View view) {
+        mPlayer.seekToPosition(null, loopStart*1000);
+        if (!mPlayer.getPlaybackState().isPlaying) {
+            mPlayer.resume(null);
+        }
+    }
+
+    public static String getTimeFromMillis(long millis) {
+        return String.format(Locale.CANADA, "%d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(millis),
+                TimeUnit.MILLISECONDS.toSeconds(millis) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
+        );
     }
 }
