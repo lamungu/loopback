@@ -34,14 +34,14 @@ dependencies {
     })
 
     // Image loading from URL
-    compile 'com.squareup.picasso:picasso:2.5.2'
     // Spotify Web Api
-    compile 'com.github.kaaes:spotify-web-api-android:0.4.1'
     // This library handles authentication and authorization
-    compile 'com.spotify.android:auth:1.0.0-alpha'
     // This library handles music playback
     compile 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
     // Double knob seekbar
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.kaaes:spotify-web-api-android:0.4.1'
+    compile 'com.spotify.android:auth:1.0.0-alpha'
     compile 'com.edmodo:rangebar:1.0.0'
     compile 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
     compile 'com.android.support:appcompat-v7:25.3.1'

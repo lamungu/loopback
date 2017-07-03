@@ -132,4 +132,13 @@
         app:layout_constraintLeft_toRightOf="@id/rangeBar"
         app:layout_constraintTop_toBottomOf="@id/playButton" />
 
+    <ImageButton
+        android:id="@+id/toIntent"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:onClick="viewMyPlaylist"
+        app:srcCompat="@android:drawable/ic_dialog_dialer"
+        tools:layout_editor_absoluteX="279dp"
+        tools:layout_editor_absoluteY="7dp" />
+
 </android.support.constraint.ConstraintLayout>

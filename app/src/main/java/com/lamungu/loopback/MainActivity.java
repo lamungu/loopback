@@ -244,4 +244,10 @@ public class MainActivity extends Activity implements
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
         );
     }
+
+    public void viewMyPlaylist(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, SongListActivity.class);
+        startActivity(intent);
+    }
 }
