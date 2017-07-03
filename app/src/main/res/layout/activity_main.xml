@@ -74,37 +74,13 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="0dp" />
 
-    <com.edmodo.rangebar.RangeBar
-        xmlns:custom="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/rangeBar"
-        app:layout_constraintTop_toBottomOf="@id/playButton"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        custom:tickCount="60"
-        custom:tickHeight="0dp"
-        />
-    <TextView
-        android:id="@+id/duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="0:00"
-        app:layout_constraintRight_toLeftOf="@id/rangeBar"
-        app:layout_constraintTop_toBottomOf="@id/playButton"
-        app:layout_constraintHorizontal_bias="0.501"
-        />
-
     <TextView
         android:id="@+id/loopText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:text="Looping:"
-        app:layout_constraintTop_toBottomOf="@id/rangeBar"
+        app:layout_constraintTop_toBottomOf="@id/playButton"
         android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -121,6 +97,30 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
+    <com.edmodo.rangebar.RangeBar
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rangeBar"
+        app:layout_constraintTop_toBottomOf="@id/loopStart"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        custom:tickCount="60"
+        custom:tickHeight="0dp"
+        />
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="0:00"
+        app:layout_constraintRight_toLeftOf="@id/rangeBar"
+        app:layout_constraintTop_toBottomOf="@id/loopStart"
+        app:layout_constraintHorizontal_bias="0.501"
+        />
+
     <TextView
         android:id="@+id/totalDuration"
         android:layout_width="wrap_content"
@@ -130,7 +130,7 @@
         android:layout_marginTop="10dp"
         android:text="0:00"
         app:layout_constraintLeft_toRightOf="@id/rangeBar"
-        app:layout_constraintTop_toBottomOf="@id/playButton" />
+        app:layout_constraintTop_toBottomOf="@id/loopStart" />
 
     <ImageButton
         android:id="@+id/toIntent"

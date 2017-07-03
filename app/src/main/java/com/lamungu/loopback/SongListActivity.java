@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 import com.spotify.sdk.android.authentication.LoginActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyError;
@@ -31,18 +36,21 @@ public class SongListActivity extends Activity {
     private Pager<PlaylistSimple> playlists;
 
     SpotifyApi mSpotifyApi;
+    ListView mPlaylistTracksListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_list);
-
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
                 REDIRECT_URI);
         builder.setScopes(new String[]{"user-read-private","playlist-read-private", "streaming"});
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
+
+        mPlaylistTracksListView = (ListView) findViewById(R.id.playlistTracks);
+
         Log.d("SongListActivityCreate", "yuuupp");
     }
 
@@ -79,10 +87,18 @@ public class SongListActivity extends Activity {
                     public void success(Playlist playlist, Response response) {
                         Pager<PlaylistTrack> tracks = playlist.tracks;
                         Log.d("Size playlists", Integer.toString(tracks.items.size()));
+                        List<String> list = new ArrayList<String>();
                         for (int i = 0; i < tracks.items.size(); i++) {
                             PlaylistTrack item = tracks.items.get(i);
                             Log.d("PlaylistTrack", item.track.name);
+                            list.add(item.track.name);
                         }
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                                SongListActivity.this,
+                                android.R.layout.simple_list_item_1,
+                                list);
+                        mPlaylistTracksListView.setAdapter(arrayAdapter);
+
                     }
 
                     @Override
