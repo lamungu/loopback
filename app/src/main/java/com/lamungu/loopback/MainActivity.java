@@ -62,7 +62,10 @@ public class MainActivity extends Activity implements
     ImageView mAlbumCoverImageView;
     ImageButton mPlayImageButton;
     TextView mDurationTextView;
+    TextView mTrackNameTextView;
+    TextView mArtistNameTextView;
     TextView mTotalDurationTextView;
+    TextView mLoopTextView;
     Handler playbackHandler = new Handler();
 
     @Override
@@ -81,6 +84,9 @@ public class MainActivity extends Activity implements
         mAlbumCoverImageView = (ImageView) findViewById(R.id.albumCover);
         mPlayImageButton = (ImageButton) findViewById(R.id.playButton);
         mTotalDurationTextView = (TextView) findViewById(R.id.totalDuration);
+        mTrackNameTextView = (TextView) findViewById(R.id.trackName);
+        mArtistNameTextView = (TextView) findViewById(R.id.artistName);
+        mLoopTextView = (TextView) findViewById(R.id.loopStart);
     }
 
     @Override
@@ -122,8 +128,10 @@ public class MainActivity extends Activity implements
                 currentTrack = mPlayer.getMetadata().currentTrack;
                 mRangeBar.setTickCount((int)currentTrack.durationMs/1000 + 2);
                 mTotalDurationTextView.setText(getTimeFromMillis(currentTrack.durationMs));
-                Log.d("TickCount", Integer.toString((int)currentTrack.durationMs/1000 + 2));
+                mTrackNameTextView.setText(currentTrack.name);
+                mArtistNameTextView.setText(currentTrack.artistName);
                 Picasso.with(getApplicationContext()).load(currentTrack.albumCoverWebUrl).into(mAlbumCoverImageView);
+                Log.d("TickCount", Integer.toString((int)currentTrack.durationMs/1000 + 2));
                 Log.d("currentTrack", currentTrack.toString());
                 break;
             case kSpPlaybackNotifyPlay:
@@ -171,9 +179,8 @@ public class MainActivity extends Activity implements
             }
         }, "spotify:track:066vHJcFUBXby0mZKVfI6v", 0, loopStart * 1000);
         mRangeBar = (RangeBar) findViewById(R.id.rangeBar);
-
-
         mRangeBar.setThumbIndices(loopStart, loopEnd);
+        mLoopTextView.setText(getTimeFromMillis((long)loopStart*1000) + " - " + getTimeFromMillis((long)loopEnd*1000));
         mRangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
             @Override
             public void onIndexChangeListener(RangeBar rangeBar, int start, int end) {
@@ -181,7 +188,7 @@ public class MainActivity extends Activity implements
                 if (start != loopStart || end != loopEnd) {
                     loopStart = start;
                     loopEnd = end;
-
+                    mLoopTextView.setText(getTimeFromMillis((long)loopStart*1000) + " - " + getTimeFromMillis((long)loopEnd*1000));
                     mPlayer.seekToPosition(null, start*1000);
                 }
             }

@@ -18,12 +18,34 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.221" />
 
+    <TextView
+        android:id="@+id/trackName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        app:layout_constraintTop_toBottomOf="@id/albumCover"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:layout_marginTop="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/artistName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        app:layout_constraintTop_toBottomOf="@id/trackName"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
     <ImageButton
         android:id="@+id/playButton"
         android:layout_height="50dp"
         android:layout_width="60dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintTop_toBottomOf="@id/albumCover"
+        android:layout_marginTop="25dp"
+        app:layout_constraintTop_toBottomOf="@id/trackName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:src="@android:drawable/ic_media_play"
@@ -34,12 +56,12 @@
         android:id="@+id/autoPlay"
         android:layout_width="60dp"
         android:layout_height="50dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="25dp"
         android:onClick="toggleReset"
         android:src="@android:drawable/ic_menu_rotate"
         app:layout_constraintLeft_toRightOf="@id/playButton"
-        app:layout_constraintTop_toBottomOf="@id/albumCover" />
+        app:layout_constraintTop_toBottomOf="@id/trackName" />
 
     <ImageButton
         android:id="@+id/resetButton"
@@ -48,9 +70,9 @@
         android:onClick="toggleReset"
         android:src="@android:drawable/ic_menu_revert"
         app:layout_constraintRight_toLeftOf="@id/playButton"
-        app:layout_constraintTop_toBottomOf="@id/albumCover"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="0dp" />
+        app:layout_constraintTop_toBottomOf="@id/trackName"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="0dp" />
 
     <com.edmodo.rangebar.RangeBar
         xmlns:custom="http://schemas.android.com/apk/res-auto"
@@ -67,7 +89,7 @@
         android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:text="0:00"
@@ -77,12 +99,35 @@
         />
 
     <TextView
+        android:id="@+id/loopText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="Looping:"
+        app:layout_constraintTop_toBottomOf="@id/rangeBar"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/loopStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="0:00 - 0:00"
+        app:layout_constraintTop_toBottomOf="@id/loopText"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
         android:id="@+id/totalDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="10dp"
         android:text="0:00"
         app:layout_constraintLeft_toRightOf="@id/rangeBar"
         app:layout_constraintTop_toBottomOf="@id/playButton" />
