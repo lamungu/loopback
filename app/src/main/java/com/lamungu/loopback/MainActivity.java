@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edmodo.rangebar.RangeBar;
+import com.joanzapata.iconify.Iconify;
+import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -56,7 +58,6 @@ public class MainActivity extends Activity implements
     private RangeBar mRangeBar;
 
     private Player mPlayer;
-    private Metadata.Track currentTrack;
     private int loopStart;
     private int loopEnd;
 
@@ -72,8 +73,8 @@ public class MainActivity extends Activity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Iconify.with(new FontAwesomeModule());
         setContentView(R.layout.activity_main);
-
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
                 REDIRECT_URI);
@@ -81,27 +82,7 @@ public class MainActivity extends Activity implements
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
 
-        mRangeBar = (RangeBar) findViewById(R.id.rangeBar);
-        mDurationTextView = (TextView) findViewById(R.id.duration);
-        mAlbumCoverImageView = (ImageView) findViewById(R.id.albumCover);
-        mPlayImageButton = (ImageButton) findViewById(R.id.playButton);
-        mTotalDurationTextView = (TextView) findViewById(R.id.totalDuration);
-        mTrackNameTextView = (TextView) findViewById(R.id.trackName);
-        mArtistNameTextView = (TextView) findViewById(R.id.artistName);
-        mLoopTextView = (TextView) findViewById(R.id.loopStart);
-
-        mRangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
-            @Override
-            public void onIndexChangeListener(RangeBar rangeBar, int start, int end) {
-                Log.d("RangeBar", Integer.toString(start) + " - " + Integer.toString(end));
-                if (start != loopStart || end != loopEnd) {
-                    loopStart = start;
-                    loopEnd = end;
-                    mLoopTextView.setText(getTimeFromMillis((long)loopStart*1000) + " - " + getTimeFromMillis((long)loopEnd*1000));
-                    mPlayer.seekToPosition(null, start*1000);
-                }
-            }
-        });
+        initializeValues();
     }
 
     @Override
@@ -129,8 +110,10 @@ public class MainActivity extends Activity implements
                 }
                 break;
             case SONG_SELECTION:
-                Log.d("IM BACK", intent.getStringExtra("playlistTrackId"));
-                this.changeTrack(intent.getStringExtra("playlistTrackId"));
+                if (intent != null && intent.hasExtra("playlistTrackId")) {
+                    Log.d("IM BACK", intent.getStringExtra("playlistTrackId"));
+                    this.changeTrack(intent.getStringExtra("playlistTrackId"));
+                }
                 break;
             default:
                 break;
@@ -149,7 +132,7 @@ public class MainActivity extends Activity implements
         switch (playerEvent) {
             // Handle event type as necessary
             case kSpPlaybackNotifyMetadataChanged:
-                currentTrack = mPlayer.getMetadata().currentTrack;
+                Metadata.Track currentTrack = mPlayer.getMetadata().currentTrack;
 
                 loopStart = 0;
                 loopEnd = (int)currentTrack.durationMs/1000;
@@ -261,5 +244,28 @@ public class MainActivity extends Activity implements
     public void viewMyPlaylist(View view)
     {
         this.viewMyPlaylist();
+    }
+
+    protected void initializeValues() {
+        mRangeBar = (RangeBar) findViewById(R.id.rangeBar);
+        mDurationTextView = (TextView) findViewById(R.id.duration);
+        mAlbumCoverImageView = (ImageView) findViewById(R.id.albumCover);
+        mPlayImageButton = (ImageButton) findViewById(R.id.playButton);
+        mTotalDurationTextView = (TextView) findViewById(R.id.totalDuration);
+        mTrackNameTextView = (TextView) findViewById(R.id.trackName);
+        mArtistNameTextView = (TextView) findViewById(R.id.artistName);
+        mLoopTextView = (TextView) findViewById(R.id.loopStart);
+        mRangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+            @Override
+            public void onIndexChangeListener(RangeBar rangeBar, int start, int end) {
+                Log.d("RangeBar", Integer.toString(start) + " - " + Integer.toString(end));
+                if (start != loopStart || end != loopEnd) {
+                    loopStart = start;
+                    loopEnd = end;
+                    mLoopTextView.setText(getTimeFromMillis((long)loopStart*1000) + " - " + getTimeFromMillis((long)loopEnd*1000));
+                    mPlayer.seekToPosition(null, start*1000);
+                }
+            }
+        });
     }
 }

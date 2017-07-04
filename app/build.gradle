@@ -38,6 +38,7 @@ dependencies {
     // This library handles authentication and authorization
     // This library handles music playback
     compile 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
+    compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2' // (v4.5)
     // Double knob seekbar
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.kaaes:spotify-web-api-android:0.4.1'
