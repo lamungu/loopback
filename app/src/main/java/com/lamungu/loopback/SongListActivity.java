@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.lamungu.loopback.adapters.SongListAdapter;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -89,6 +92,17 @@ public class SongListActivity extends Activity {
                         Pager<PlaylistTrack> tracks = playlist.tracks;
                         SongListAdapter songListAdapter = new SongListAdapter(SongListActivity.this, 0, tracks.items);
                         mPlaylistTracksListView.setAdapter(songListAdapter);
+                        mPlaylistTracksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                TextView playlistTrackId = (TextView) view.findViewById(R.id.playlistTrackId);
+                                Log.d("Selected", playlistTrackId.getText().toString());
+                                Intent intent = new Intent();
+                                intent.putExtra("playlistTrackId", playlistTrackId.getText().toString());
+                                setResult(7889, intent);
+                                finish();//finishing activity
+                            }
+                        });
                     }
                     @Override
                     public void failure(RetrofitError error) {

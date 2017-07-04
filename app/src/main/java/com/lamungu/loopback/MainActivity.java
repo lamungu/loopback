@@ -50,6 +50,7 @@ public class MainActivity extends Activity implements
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
     private static final int REQUEST_CODE = 1337;
+    private static final int SONG_SELECTION = 7889;
     protected static final long TIME_DELAY = 1000;
 
     private RangeBar mRangeBar;
@@ -80,6 +81,7 @@ public class MainActivity extends Activity implements
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
 
+        mRangeBar = (RangeBar) findViewById(R.id.rangeBar);
         mDurationTextView = (TextView) findViewById(R.id.duration);
         mAlbumCoverImageView = (ImageView) findViewById(R.id.albumCover);
         mPlayImageButton = (ImageButton) findViewById(R.id.playButton);
@@ -87,29 +89,51 @@ public class MainActivity extends Activity implements
         mTrackNameTextView = (TextView) findViewById(R.id.trackName);
         mArtistNameTextView = (TextView) findViewById(R.id.artistName);
         mLoopTextView = (TextView) findViewById(R.id.loopStart);
+
+        mRangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+            @Override
+            public void onIndexChangeListener(RangeBar rangeBar, int start, int end) {
+                Log.d("RangeBar", Integer.toString(start) + " - " + Integer.toString(end));
+                if (start != loopStart || end != loopEnd) {
+                    loopStart = start;
+                    loopEnd = end;
+                    mLoopTextView.setText(getTimeFromMillis((long)loopStart*1000) + " - " + getTimeFromMillis((long)loopEnd*1000));
+                    mPlayer.seekToPosition(null, start*1000);
+                }
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         // Check if result comes from the correct activity
-        if (requestCode == REQUEST_CODE) {
-            AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
-            if (response.getType() == AuthenticationResponse.Type.TOKEN) {
-                final Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
-                Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
-                    @Override
-                    public void onInitialized(SpotifyPlayer spotifyPlayer) {
-                        mPlayer = spotifyPlayer;
-                        mPlayer.addConnectionStateCallback(MainActivity.this);
-                        mPlayer.addNotificationCallback(MainActivity.this);
-                    }
-                    @Override
-                    public void onError(Throwable throwable) {
-                        Log.e("MainActivity", "Could not initialize player: " + throwable.getMessage());
-                    }
-                });
-            }
+        switch (requestCode) {
+            case REQUEST_CODE:
+                AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
+                if (response.getType() == AuthenticationResponse.Type.TOKEN) {
+                    final Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
+                    Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
+                        @Override
+                        public void onInitialized(SpotifyPlayer spotifyPlayer) {
+                            mPlayer = spotifyPlayer;
+                            mPlayer.addConnectionStateCallback(MainActivity.this);
+                            mPlayer.addNotificationCallback(MainActivity.this);
+                        }
+
+                        @Override
+                        public void onError(Throwable throwable) {
+                            Log.e("MainActivity", "Could not initialize player: " + throwable.getMessage());
+                        }
+                    });
+                }
+                break;
+            case SONG_SELECTION:
+                Log.d("IM BACK", intent.getStringExtra("playlistTrackId"));
+                this.changeTrack(intent.getStringExtra("playlistTrackId"));
+                break;
+            default:
+                break;
         }
     }
 
@@ -126,10 +150,15 @@ public class MainActivity extends Activity implements
             // Handle event type as necessary
             case kSpPlaybackNotifyMetadataChanged:
                 currentTrack = mPlayer.getMetadata().currentTrack;
+
+                loopStart = 0;
+                loopEnd = (int)currentTrack.durationMs/1000;
                 mRangeBar.setTickCount((int)currentTrack.durationMs/1000 + 2);
+                mRangeBar.setThumbIndices(loopStart, loopEnd);
                 mTotalDurationTextView.setText(getTimeFromMillis(currentTrack.durationMs));
                 mTrackNameTextView.setText(currentTrack.name);
                 mArtistNameTextView.setText(currentTrack.artistName);
+                mLoopTextView.setText(getTimeFromMillis((long)loopStart*1000) + " - " + getTimeFromMillis((long)loopEnd*1000));
                 Picasso.with(getApplicationContext()).load(currentTrack.albumCoverWebUrl).into(mAlbumCoverImageView);
                 Log.d("TickCount", Integer.toString((int)currentTrack.durationMs/1000 + 2));
                 Log.d("currentTrack", currentTrack.toString());
@@ -167,32 +196,7 @@ public class MainActivity extends Activity implements
         loopStart = 5;
         loopEnd = 20;
 
-        mPlayer.playUri(new Player.OperationCallback() {
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onError(Error error) {
-
-            }
-        }, "spotify:track:066vHJcFUBXby0mZKVfI6v", 0, loopStart * 1000);
-        mRangeBar = (RangeBar) findViewById(R.id.rangeBar);
-        mRangeBar.setThumbIndices(loopStart, loopEnd);
-        mLoopTextView.setText(getTimeFromMillis((long)loopStart*1000) + " - " + getTimeFromMillis((long)loopEnd*1000));
-        mRangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
-            @Override
-            public void onIndexChangeListener(RangeBar rangeBar, int start, int end) {
-                Log.d("RangeBar", Integer.toString(start) + " - " + Integer.toString(end));
-                if (start != loopStart || end != loopEnd) {
-                    loopStart = start;
-                    loopEnd = end;
-                    mLoopTextView.setText(getTimeFromMillis((long)loopStart*1000) + " - " + getTimeFromMillis((long)loopEnd*1000));
-                    mPlayer.seekToPosition(null, start*1000);
-                }
-            }
-        });
+        this.viewMyPlaylist();
     }
 
     @Override
@@ -237,6 +241,10 @@ public class MainActivity extends Activity implements
         }
     }
 
+    public void changeTrack(String uri) {
+        mPlayer.playUri(null, uri, 0, 0);
+    }
+
     public static String getTimeFromMillis(long millis) {
         return String.format(Locale.CANADA, "%d:%02d",
                 TimeUnit.MILLISECONDS.toMinutes(millis),
@@ -245,9 +253,13 @@ public class MainActivity extends Activity implements
         );
     }
 
-    public void viewMyPlaylist(View view)
+    public void viewMyPlaylist()
     {
         Intent intent = new Intent(MainActivity.this, SongListActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, SONG_SELECTION);
+    }
+    public void viewMyPlaylist(View view)
+    {
+        this.viewMyPlaylist();
     }
 }
