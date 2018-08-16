@@ -48,7 +48,7 @@ export default class App extends Component<Props> {
     render() {
       return (
         <View style={styles.container}>
-            <Button onClick={this.loginSpotify} style={styles.button} iconLeft success>
+            <Button onPress={this.loginSpotify} style={styles.button} iconLeft success>
                 <Icon name="spotify" type="FontAwesome"/>
                 <Text style={styles.text}>Login with Spotify</Text>
             </Button>
@@ -71,9 +71,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  button: {
-    textAlign:center
-  },
+  button: {},
   welcome: {
     fontSize: 20,
     textAlign: 'center',

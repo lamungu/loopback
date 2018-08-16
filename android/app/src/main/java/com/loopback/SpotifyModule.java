@@ -25,8 +25,8 @@ public class SpotifyModule extends ReactContextBaseJavaModule {
 
 
     @ReactMethod
-    public void login(String contact) {
-//        Log.e(TAG, "Calling: " + contact);
+    public void login() {
+        Log.e(TAG, "Logging in ");
 //            AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
 //                AuthenticationResponse.Type.TOKEN,
 //                REDIRECT_URI);

@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_7928591f699529f2732352a16c4df6b220860f44.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.55.4\jars\libs\infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\infer-annotations-4.0_b010aed259a6d8607de5c4c0ccd729077b546e73.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fresco\drawee\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-drawee-1.3.0_74f1035e1ad6e982758ca6bfdddeb4dcc1845737.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\exoplayer-smoothstreaming\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8c57f428f82d1accd3d84d9d7fcae183ed94297f">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-exoplayer-smoothstreaming-2.7.3_385550e079d097a870a8a7ee0f56617d4bceecfd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\extension-okhttp\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="fc90669423ccb16c7cf005bccb3d5ffeb8730659">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-extension-okhttp-2.7.3_a10bb043053426675ade88a0c1fc0c175428c2dd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\exoplayer-ui\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0a87d85ec555546221e6d809e7fe70aa09c11063">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-exoplayer-ui-2.7.3_ab0cdf877255a882bc43b055609e82be363cddfb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_b889f0a1a853a16c346f10f9808d1c093ba1cc80.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\exoplayer-smoothstreaming\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8c57f428f82d1accd3d84d9d7fcae183ed94297f">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-exoplayer-smoothstreaming-2.7.3_385550e079d097a870a8a7ee0f56617d4bceecfd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.spotify.sdk\spotify-player-24-noconnect-2.20b\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="55220cc71bd23fff8fc339a67f55be3cfd11cdec">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\exploded-aar-com.spotify.sdk-spotify-player-24-noconnect-2.20b_449dbd231101d2d5f58e36631647a7a0c580b4b8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\extension-okhttp\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fc90669423ccb16c7cf005bccb3d5ffeb8730659">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-extension-okhttp-2.7.3_a10bb043053426675ade88a0c1fc0c175428c2dd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fresco\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fresco-1.3.0_afaf328ef3a0a47ff4b646917e4a0f4e1d40c9df.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-24.2.1_b66c1f99231327ee1af1cdc7c408fbe247a41c22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\javax.inject\javax.inject\1\6975da39a7040257bd51d21a231b76c915872d38\javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\javax.inject-1_6628f9368e2b3ffafc9f9a9be2f3cc9849f702fb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.9.1\84b4b7d1c4a238e7899972b7446c250691e65f1f\okhttp-3.9.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="84b4b7d1c4a238e7899972b7446c250691e65f1f">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\okhttp-3.9.1_e0d3b1391345db06fbd28f1303564c191dff6b23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fbcore\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fbcore-1.3.0_dd0bb846260b6aed0a15a30e020e10fec5309858.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.55.4\jars\libs\infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\infer-annotations-4.0_b010aed259a6d8607de5c4c0ccd729077b546e73.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.9.1\84b4b7d1c4a238e7899972b7446c250691e65f1f\okhttp-3.9.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="84b4b7d1c4a238e7899972b7446c250691e65f1f">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\okhttp-3.9.1_e0d3b1391345db06fbd28f1303564c191dff6b23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fbcore\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fbcore-1.3.0_dd0bb846260b6aed0a15a30e020e10fec5309858.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-24.2.1_bf318561578ccd1fd0e3bc8ee7a04ec1edf5dcf0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-base\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-base-1.3.0_48cdfbd5cf17ec1e9a0bd350b3f776901797a3fd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.soloader\soloader\0.1.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.soloader-soloader-0.1.0_2b466d07b24a4b409dc72bb3a1f67f5df5934559.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.spotify.sdk\spotify-player-24-noconnect-2.20b\jars\libs\jnihelpers-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="b54aab38b4f87a6682331b511fec0db6b952bb7e">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\jnihelpers-1.0_afa69185767890b97f75e745b32431e8307c881d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-24.2.1_133e7353ab5e16d249532886b83444d66d2f5ff3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-24.2.1_7fb550e394dedbaea688047e1b229cfa108ed8a5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fbui.textlayoutbuilder\textlayoutbuilder\1.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_61fe624e3a076ae1eb02aa1bd8e526c0ea862c4e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.facebook.fbui.textlayoutbuilder\staticlayout-proxy\1.0\f162442a19fff13995fbd51ba414d9ee05579080\staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\staticlayout-proxy-1.0_23e62de53cc0786d8182f60b75638c31a6a14647.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-24.2.1_a3584b7c2450b795919db21d7c93e68483a21586.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.spotify.android\spotify-android-auth-1.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0e7c2daeb5c4e8a4b0874bd62367979bb1c0c82a">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\exploded-aar-com.spotify.android-spotify-android-auth-1.0.0_5dec80eeb38649a93291db42964b63a8ad3d5ae2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\3.0.0\5871fb60dc68d67da54a663c3fd636a10a532948\jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\jsr305-3.0.0_8b128a2cd81c7690b65fd55a7c02588c3c86245d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.55.4\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e31331bdf6b5952badadbfc171f04b95c55d3b16">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.react-react-native-0.55.4_c0f14a0457dc267f3005a65b982e6259d5481805.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.2.1_188088d538280d986cb0956108f7c23e947b6a7c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.13.0\a9283170b7305c8d92d25aff02a6ab7e45d06cbe\okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\okio-1.13.0_6159a3928cd192db6f3270b74e69ba5d2b133663.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\loopback\react-native-video\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="50aa3b6de8d96b4dfffdd04267030ad1cb30781b">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\loopback-react-native-video-unspecified_156054eb82be891ce67ebe97bdb86c575cacde63.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fbui.textlayoutbuilder\textlayoutbuilder\1.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_61fe624e3a076ae1eb02aa1bd8e526c0ea862c4e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.soloader\soloader\0.1.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.soloader-soloader-0.1.0_2b466d07b24a4b409dc72bb3a1f67f5df5934559.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_ff24179994697fc266544db7cf0c0b9a7c1e1c10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\exoplayer-dash\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="cc0260762808f1e9244fa3a1aa53c4a140208af5">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-exoplayer-dash-2.7.3_7e43d7bc817b66e77574a0eb5ced8b6d51f4fda1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\exoplayer\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="3ecb9d2aad9a03dd8d0914b715cc1fc11d942c6c">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-exoplayer-2.7.3_f3a692b1222485819d32253e384263810af245b1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.55.4\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="e31331bdf6b5952badadbfc171f04b95c55d3b16">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.react-react-native-0.55.4_c0f14a0457dc267f3005a65b982e6259d5481805.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\exoplayer-ui\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="0a87d85ec555546221e6d809e7fe70aa09c11063">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-exoplayer-ui-2.7.3_ab0cdf877255a882bc43b055609e82be363cddfb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\3.0.0\5871fb60dc68d67da54a663c3fd636a10a532948\jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\jsr305-3.0.0_8b128a2cd81c7690b65fd55a7c02588c3c86245d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.facebook.fbui.textlayoutbuilder\staticlayout-proxy\1.0\f162442a19fff13995fbd51ba414d9ee05579080\staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\staticlayout-proxy-1.0_23e62de53cc0786d8182f60b75638c31a6a14647.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp-urlconnection\3.6.0\3f9b16b774f2c36cfd86dd2053d0b3059531dacc\okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\okhttp-urlconnection-3.6.0_67bb37280a7d0609656ea661974d8aa71084f81a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fresco\drawee\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-drawee-1.3.0_74f1035e1ad6e982758ca6bfdddeb4dcc1845737.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\javax.inject\javax.inject\1\6975da39a7040257bd51d21a231b76c915872d38\javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\javax.inject-1_6628f9368e2b3ffafc9f9a9be2f3cc9849f702fb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_6e0f7ead91ad8ca1de818c0924f7b5c3b675ef0f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-okhttp3\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c03c08c9934b23c8c09c803345ec51a74119127b">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-okhttp3-1.3.0_4b2debb7d6077510910626402c517644b1f19890.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-base\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-base-1.3.0_48cdfbd5cf17ec1e9a0bd350b3f776901797a3fd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\exoplayer-core\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="effa31b9150eed30c7bdd455cec8448f58922cc1">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-exoplayer-core-2.7.3_792a205f617e7011ca65848fe330445d13302b72.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\exoplayer-hls\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="aafed85e21a4daacd152f5f8d44bb61cd35e6359">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-exoplayer-hls-2.7.3_cb309ca26d60b2d51e15840e1ddaf97fdb8fe60a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\exoplayer-dash\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="cc0260762808f1e9244fa3a1aa53c4a140208af5">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-exoplayer-dash-2.7.3_7e43d7bc817b66e77574a0eb5ced8b6d51f4fda1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.spotify.sdk\spotify-player-24-noconnect-2.20b\jars\libs\jnihelpers-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b54aab38b4f87a6682331b511fec0db6b952bb7e">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\jnihelpers-1.0_afa69185767890b97f75e745b32431e8307c881d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\27.0.0\a7782471b2a0de8fec071b8094a8aaf61c46ab70\support-annotations-27.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="a7782471b2a0de8fec071b8094a8aaf61c46ab70">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\support-annotations-27.0.0_7b6d8ce6fa2a384337cf83423bf78e2c980a9702.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-tasks\1.4.0\d85884acf6810a3bbbecb587f239005cbc846dc4\bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\bolts-tasks-1.4.0_847a1ee1fd08b6978a2d466f840bc64a2bae9e43.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.spotify.sdk\spotify-player-24-noconnect-2.20b\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="55220cc71bd23fff8fc339a67f55be3cfd11cdec">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\exploded-aar-com.spotify.sdk-spotify-player-24-noconnect-2.20b_449dbd231101d2d5f58e36631647a7a0c580b4b8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-24.2.1_a320610e3e8b34b8b4aa09e5caf48e2fe50dfcc0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\exoplayer-core\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="effa31b9150eed30c7bdd455cec8448f58922cc1">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-exoplayer-core-2.7.3_792a205f617e7011ca65848fe330445d13302b72.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-okhttp3\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="c03c08c9934b23c8c09c803345ec51a74119127b">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-okhttp3-1.3.0_4b2debb7d6077510910626402c517644b1f19890.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\exoplayer-hls\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="aafed85e21a4daacd152f5f8d44bb61cd35e6359">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-exoplayer-hls-2.7.3_cb309ca26d60b2d51e15840e1ddaf97fdb8fe60a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-1.3.0_1cb330a26d38c0d14adcbb4eac205de823f3e4e8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\27.0.0\a7782471b2a0de8fec071b8094a8aaf61c46ab70\support-annotations-27.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="a7782471b2a0de8fec071b8094a8aaf61c46ab70">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\support-annotations-27.0.0_7b6d8ce6fa2a384337cf83423bf78e2c980a9702.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fresco\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fresco-1.3.0_afaf328ef3a0a47ff4b646917e4a0f4e1d40c9df.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-1.3.0_1cb330a26d38c0d14adcbb4eac205de823f3e4e8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.google.android.exoplayer\exoplayer\2.7.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="3ecb9d2aad9a03dd8d0914b715cc1fc11d942c6c">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.google.android.exoplayer-exoplayer-2.7.3_f3a692b1222485819d32253e384263810af245b1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.13.0\a9283170b7305c8d92d25aff02a6ab7e45d06cbe\okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\okio-1.13.0_6159a3928cd192db6f3270b74e69ba5d2b133663.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\loopback\react-native-video\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="50aa3b6de8d96b4dfffdd04267030ad1cb30781b">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\loopback-react-native-video-unspecified_156054eb82be891ce67ebe97bdb86c575cacde63.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp-urlconnection\3.6.0\3f9b16b774f2c36cfd86dd2053d0b3059531dacc\okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\okhttp-urlconnection-3.6.0_67bb37280a7d0609656ea661974d8aa71084f81a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Lamungu\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-tasks\1.4.0\d85884acf6810a3bbbecb587f239005cbc846dc4\bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\bolts-tasks-1.4.0_847a1ee1fd08b6978a2d466f840bc64a2bae9e43.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-24.2.1_f7982fcb017f745b7c5afd2efd7c37c807686410.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-24.2.1_475401a66e0f3c7e2fff8727abc3060e1704e6cf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git\loopback\android\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.2"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="D:\git\loopback\android\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_f50d41164b94fd107b2e47e6411fcc444e95d734.jar" />
+    </item>
+
+</items>

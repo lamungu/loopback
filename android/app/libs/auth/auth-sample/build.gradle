@@ -45,6 +45,7 @@ android {
     lintOptions {
         lintConfig file("${project.rootDir}/config/lint.xml")
         quiet false
+        abortOnError false
         warningsAsErrors false
         textReport true
         textOutput 'stdout'

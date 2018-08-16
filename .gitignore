@@ -8,3 +8,8 @@
 /build
 /captures
 .externalNativeBuild
+node_modules
+android/app/build/
+
+
+android/app/libs/auth/auth-lib/build/
