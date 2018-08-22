@@ -166,7 +166,7 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
                 }
                 @Override
                 public void failure(RetrofitError error) {
-                    Log.d(" playekalist", "feafae");
+                    Log.d(" playlist", "feafae");
                 }
             });
         }
