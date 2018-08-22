@@ -3,21 +3,19 @@ import Video from 'react-native-video';
 import SpotifyModule from './SpotifyModule';
 
 import {
-  Platform,
-  StyleSheet,
   Text,
-  View
+  View,
+  StyleSheet
 } from 'react-native';
+
 import {
     Button,
-    Icon
+    Container,
+    Header,
+    Body,
+    Content,
+    Icon,
 } from 'native-base';
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -47,12 +45,27 @@ export default class App extends Component<Props> {
 
     render() {
       return (
-        <View style={styles.container}>
-            <Button onPress={this.loginSpotify} style={styles.button} iconLeft success>
-                <Icon name="spotify" type="FontAwesome"/>
-                <Text style={styles.text}>Login with Spotify</Text>
-            </Button>
-        </View>
+          <Container>
+              <Video source={require('./Untitled.mp4')}   // Can be a URL or a local file.
+                     ref={(ref) => {
+                         this.player = ref
+                     }}
+                     repeat
+                     resizeMode="cover"
+                     onBuffer={this.onBuffer}                // Callback when remote video is buffering
+                     onEnd={this.onEnd}                      // Callback when playback finishes
+                     onError={this.videoError}               // Callback when video cannot be loaded
+                     style={styles.backgroundVideo} />
+              <Content>
+                  <Body style={styles.body}>
+                      <Button onPress={this.loginSpotify} iconLeft block success>
+                        <Icon name="spotify" type="FontAwesome"/>
+                        <Text style={styles.text}>&nbsp;Login with Spotify</Text>
+                      </Button>
+                  </Body>
+              </Content>
+          </Container>
+
       );
     }
 }
@@ -65,13 +78,9 @@ const styles = StyleSheet.create({
       bottom: 0,
       right: 0,
   },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  button: {},
+    body: {
+        flexDirection: "row", justifyContent: "center"
+    },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
