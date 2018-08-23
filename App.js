@@ -17,8 +17,7 @@ import {
     Icon,
 } from 'native-base';
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
     constructor() {
         super();
         this.onBuffer = this.onBuffer.bind(this);
@@ -45,27 +44,22 @@ export default class App extends Component<Props> {
 
     render() {
       return (
-          <Container>
-              <Video source={require('./Untitled.mp4')}   // Can be a URL or a local file.
-                     ref={(ref) => {
-                         this.player = ref
-                     }}
-                     repeat
-                     resizeMode="cover"
-                     onBuffer={this.onBuffer}                // Callback when remote video is buffering
-                     onEnd={this.onEnd}                      // Callback when playback finishes
-                     onError={this.videoError}               // Callback when video cannot be loaded
-                     style={styles.backgroundVideo} />
-              <Content>
-                  <Body style={styles.body}>
-                      <Button onPress={this.loginSpotify} iconLeft block success>
-                        <Icon name="spotify" type="FontAwesome"/>
-                        <Text style={styles.text}>&nbsp;Login with Spotify</Text>
-                      </Button>
-                  </Body>
-              </Content>
-          </Container>
-
+        <View style={styles.alignWrap}>
+            <Video source={require('./login-hero.mp4')}   // Can be a URL or a local file.
+                ref={(ref) => {
+                    this.player = ref
+                }}
+                repeat
+                resizeMode="cover"
+                onBuffer={this.onBuffer}                // Callback when remote video is buffering
+                onEnd={this.onEnd}                      // Callback when playback finishes
+                onError={this.videoError}               // Callback when video cannot be loaded
+                style={styles.backgroundVideo} />
+            <Button onPress={this.loginSpotify} success style={styles.button}>
+                <Icon name="spotify" type="FontAwesome"/>
+                <Text style={styles.text}>Login with Spotify&nbsp;</Text>
+            </Button>
+        </View>
       );
     }
 }
@@ -78,9 +72,20 @@ const styles = StyleSheet.create({
       bottom: 0,
       right: 0,
   },
-    body: {
-        flexDirection: "row", justifyContent: "center"
-    },
+  body: {
+      flexDirection: "row", 
+      flex: 1,
+      justifyContent: "center",
+      alignItems: 'center'
+  },
+  button: {
+      alignSelf:'center'
+  },
+  alignWrap: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems:"center"
+  },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
