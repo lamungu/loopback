@@ -57,27 +57,29 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
 
             switch (requestCode) {
                 case REQUEST_CODE:
-                    AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
-                    if (response.getType() == AuthenticationResponse.Type.TOKEN) {
-                        mAccessToken = response.getAccessToken();
-                        mSpotifyApi = new SpotifyApi();
-                        mSpotifyApi.setAccessToken(mAccessToken);
-                        Log.d("Access Token", mAccessToken);
-                        final Config playerConfig = new Config(getReactApplicationContext(), mAccessToken, CLIENT_ID);
-                        Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
-                            @Override
-                            public void onInitialized(SpotifyPlayer spotifyPlayer) {
-                                mPlayer = spotifyPlayer;
-                                Log.e(TAG, "I think it worked dude");
-                                mPlayer.addConnectionStateCallback(SpotifyModule.this);
-                                mPlayer.addNotificationCallback(SpotifyModule.this);
-                            }
+                    if (mSpotifyPromise != null) {
+                        AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
+                        if (response.getType() == AuthenticationResponse.Type.TOKEN) {
+                            mAccessToken = response.getAccessToken();
+                            mSpotifyApi = new SpotifyApi();
+                            mSpotifyApi.setAccessToken(mAccessToken);
+                            mPickerPromise.resolve(mAccessToken);
+                            final Config playerConfig = new Config(getReactApplicationContext(), mAccessToken, CLIENT_ID);
+                            Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
+                                @Override
+                                public void onInitialized(SpotifyPlayer spotifyPlayer) {
+                                    mPlayer = spotifyPlayer;
+                                    Log.e(TAG, "I think it worked dude");
+                                    mPlayer.addConnectionStateCallback(SpotifyModule.this);
+                                    mPlayer.addNotificationCallback(SpotifyModule.this);
+                                }
 
-                            @Override
-                            public void onError(Throwable throwable) {
-                                Log.e(TAG, "Could not initialize player: " + throwable.getMessage());
-                            }
-                        });
+                                @Override
+                                public void onError(Throwable throwable) {
+                                    Log.e(TAG, "Could not initialize player: " + throwable.getMessage());
+                                }
+                            });
+                        }
                     }
                     break;
                 case SONG_SELECTION:
