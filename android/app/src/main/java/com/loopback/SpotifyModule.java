@@ -4,6 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
+import java.util.Date;
+import java.util.Map;
+
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.Promise;
@@ -26,6 +33,7 @@ import kaaes.spotify.webapi.android.models.Pager;
 import kaaes.spotify.webapi.android.models.Playlist;
 import kaaes.spotify.webapi.android.models.PlaylistSimple;
 import kaaes.spotify.webapi.android.models.PlaylistTrack;
+import kaaes.spotify.webapi.android.models.*;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -50,6 +58,7 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
     private Promise mSpotifyPromise;
     private Player mPlayer;
     private String mAccessToken;
+    private double mExpiresIn;
     private final ActivityEventListener mActivityEventListener = new BaseActivityEventListener() {
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
@@ -61,24 +70,14 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
                         AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
                         if (response.getType() == AuthenticationResponse.Type.TOKEN) {
                             mAccessToken = response.getAccessToken();
+                            // Time when token expires (now + 1 hour)
+                            mExpiresIn =  (double)(new Date().getTime()/1000) + response.getExpiresIn();
+                            WritableMap mapBundle = Arguments.createMap();
+                            mapBundle.putString("accessToken", mAccessToken);
+                            mapBundle.putDouble("expiresIn",  mExpiresIn);
                             mSpotifyApi = new SpotifyApi();
                             mSpotifyApi.setAccessToken(mAccessToken);
-                            mPickerPromise.resolve(mAccessToken);
-                            final Config playerConfig = new Config(getReactApplicationContext(), mAccessToken, CLIENT_ID);
-                            Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
-                                @Override
-                                public void onInitialized(SpotifyPlayer spotifyPlayer) {
-                                    mPlayer = spotifyPlayer;
-                                    Log.e(TAG, "I think it worked dude");
-                                    mPlayer.addConnectionStateCallback(SpotifyModule.this);
-                                    mPlayer.addNotificationCallback(SpotifyModule.this);
-                                }
-
-                                @Override
-                                public void onError(Throwable throwable) {
-                                    Log.e(TAG, "Could not initialize player: " + throwable.getMessage());
-                                }
-                            });
+                            mSpotifyPromise.resolve(mapBundle);
                         }
                     }
                     break;
@@ -123,7 +122,6 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
     @Override
     public void onLoggedIn() {
         Log.d(TAG, "User logged in");
-        this.getPlaylists();
     }
 
     @Override
@@ -136,42 +134,62 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
         }
     }
 
-    private void getPlaylists() {
+    @ReactMethod
+    public void init(ReadableMap token, final Promise promise) {
+        mAccessToken = token.getString("accessToken");
+        // Time when token expires (now + 1 hour)
+        mExpiresIn =  token.getDouble("expiresIn");
+        mSpotifyApi = new SpotifyApi();
+        mSpotifyApi.setAccessToken(mAccessToken);
+        promise.resolve(true);
+    }
+
+    @ReactMethod
+    public void loadTracks(final Promise promise) {
+        Log.d(TAG, "Loading tracks");
         if (mAccessToken != null) {
             SpotifyService spotify = mSpotifyApi.getService();
-            spotify.getMyPlaylists(new Callback<Pager<PlaylistSimple>>() {
-                @Override
-                public void success(Pager<PlaylistSimple> playlistSimplePager, Response response) {
-                    playlists = playlistSimplePager;
-                    Log.d("Size playlists", Integer.toString(playlists.items.size()));
-                    for (int i = 0; i < playlists.items.size(); i++) {
-                        PlaylistSimple item = playlists.items.get(i);
-                        Log.d("PlaylistSimple", item.name);
-                    }
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-
-                }
-            });
             spotify.getPlaylist("12185327086", "6f0EyIDpBiPlrNYjZk2Zzt", new Callback<Playlist>() {
                 @Override
                 public void success(Playlist playlist, Response response) {
                     Pager<PlaylistTrack> tracks = playlist.tracks;
-                    Log.d(TAG, tracks.toString());
+                    WritableMap trackBundle = Arguments.createMap();
+                    WritableArray trackArray = Arguments.createArray();
                     for (int i = 0; i < tracks.items.size(); i++) {
-                        PlaylistTrack track = tracks.items.get(i);
-                        Log.d("PlaylistSimple", track.track.name);
+                        WritableMap trackSimpleMap = Arguments.createMap();
+                        TrackSimple track = tracks.items.get(i).track;
+                        trackSimpleMap.putString("name", track.name);
+                        trackSimpleMap.putString("uri", track.uri);
+                        trackSimpleMap.putString("duration_ms", String.valueOf(track.duration_ms));     
+                        // Go through the artists
+                        String artistNames = "";
+                        for (int j = 0; j < track.artists.size(); j++) {
+                            ArtistSimple artist = track.artists.get(j);
+                            artistNames += artist.name;
+                            if (j != (track.artists.size() - 1)) {
+                                artistNames += ',';
+                            } 
+                        }
+
+                        for (Map.Entry<String, String> entry : track.external_urls.entrySet())
+                        {
+                            Log.d(TAG, entry.getKey() + "/" + entry.getValue());
+                        }
+                        trackSimpleMap.putString("artists", artistNames);
+                        trackArray.pushMap(trackSimpleMap);
                     }
-                    //tracks.items;
+                    trackBundle.putArray("tracks", trackArray);
+                    promise.resolve(trackBundle);
                 }
                 @Override
                 public void failure(RetrofitError error) {
-                    Log.d(" playlist", "feafae");
+                    promise.reject("Playlist error");
                 }
             });
+        } else {
+            promise.reject("No Access Token");
         }
+
     }
 
     @Override

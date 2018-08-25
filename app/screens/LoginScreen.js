@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { AsyncStorage } from 'react-native';
 import Video from 'react-native-video';
 import SpotifyModule from '../modules/SpotifyModule';
-
 import {
   Text,
   View,
@@ -10,10 +10,6 @@ import {
 
 import {
     Button,
-    Container,
-    Header,
-    Body,
-    Content,
     Icon,
 } from 'native-base';
 
@@ -42,10 +38,15 @@ export default class LoginScreen extends Component {
     }
 
     async loginSpotify() {
-        let accessToken = await SpotifyModule.login();
-        console.log('received: ' + accessToken);
-        await AsyncStorage.setItem('userToken', accessToken);
-        this.props.navigation.navigate('App');
+        SpotifyModule.login().then(async (response) => {
+            console.log(response.accessToken);
+            console.log(response.expiresIn);
+            await AsyncStorage.setItem('userToken', response.accessToken);
+            await AsyncStorage.setItem('token', JSON.stringify(response));
+            this.props.navigation.navigate('App');
+        }).catch(error => {
+            console.log(error);
+        });
     }
 
     render() {
