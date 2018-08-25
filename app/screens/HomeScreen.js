@@ -19,6 +19,10 @@ import {
 import SpotifyModule from '../modules/SpotifyModule';
 
 export default class HomeScreen extends React.Component {
+  static navigationOptions = {
+    drawerLabel: 'Home',
+  };
+
   constructor() {
     super();
     this.state = {
@@ -28,10 +32,7 @@ export default class HomeScreen extends React.Component {
     this.logout = this.logout.bind(this);
   }
 
-  logout() {
-    AsyncStorage.removeItem('token');
-    this.props.navigation.navigate('Auth');
-  }
+  logout() {}
 
   componentDidMount() {
       this.setState({loading:true});
@@ -50,12 +51,9 @@ export default class HomeScreen extends React.Component {
       <List>
         {this.state.tracks.map((track, key) => (
           <ListItem key={key} thumbnail>
-          <Left>
-            <Thumbnail square source={{ uri: 'Image URL' }} />
-          </Left>
           <Body>
-            <Text>{track.name}</Text>
-            <Text note numberOfLines={1}>{track.artists}</Text>
+            <Text style={styles.trackName}>{track.name}</Text>
+            <Text note numberOfLines={1}>{track.artists.join(', ')}</Text>
           </Body>
           <Right>
             <Button transparent>
@@ -65,13 +63,17 @@ export default class HomeScreen extends React.Component {
         </ListItem>
         ))}
       </List>
-        <Button onPress={this.logout}><Text>Logout</Text></Button>
+       
       </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  trackName: {
+      fontSize:16,
+      fontWeight:"700",
+  },
   backgroundVideo: {
       position: 'absolute',
       top: 0,

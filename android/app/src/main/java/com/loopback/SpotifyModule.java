@@ -162,20 +162,12 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
                         trackSimpleMap.putString("uri", track.uri);
                         trackSimpleMap.putString("duration_ms", String.valueOf(track.duration_ms));     
                         // Go through the artists
-                        String artistNames = "";
+                        WritableArray artistNames = Arguments.createArray();
                         for (int j = 0; j < track.artists.size(); j++) {
                             ArtistSimple artist = track.artists.get(j);
-                            artistNames += artist.name;
-                            if (j != (track.artists.size() - 1)) {
-                                artistNames += ',';
-                            } 
+                            artistNames.pushString(artist.name);
                         }
-
-                        for (Map.Entry<String, String> entry : track.external_urls.entrySet())
-                        {
-                            Log.d(TAG, entry.getKey() + "/" + entry.getValue());
-                        }
-                        trackSimpleMap.putString("artists", artistNames);
+                        trackSimpleMap.putArray("artists", artistNames);
                         trackArray.pushMap(trackSimpleMap);
                     }
                     trackBundle.putArray("tracks", trackArray);
