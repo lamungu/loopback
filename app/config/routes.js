@@ -14,10 +14,11 @@ import {
 } from 'native-base';
 import TouchableItem from 'react-navigation-drawer/dist/views/TouchableItem';
 import { DrawerItems, SafeAreaView, createSwitchNavigator, createDrawerNavigator, createStackNavigator } from 'react-navigation';
-
+import PlayerScreen from '../screens/PlayerScreen';
 
 const AppStack = createDrawerNavigator({
    Home: HomeScreen,
+   Player: PlayerScreen
 },{
   contentComponent: props => 
     (
@@ -47,7 +48,6 @@ export default RootStack = createSwitchNavigator(
     initialRouteName: 'AuthLoading',
   }
 );
-
 
 const styles = StyleSheet.create({
   container: {

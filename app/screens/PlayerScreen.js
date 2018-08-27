@@ -10,36 +10,38 @@ import {
   ListItem
 } from 'native-base';
 import {
-  ScrollView,
   StyleSheet,
   View,
   Text,
-  AsyncStorage
 } from 'react-native';
 import SpotifyModule from '../modules/SpotifyModule';
 
 const getTime = (time) => {
   return Math.floor(moment.duration(parseInt(time)).asMinutes()) + ':' + (moment.duration(parseInt(time)).seconds() < 10 ? '0' : '') + moment.duration(parseInt(time)).seconds();
 }
-export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    drawerLabel: 'Home',
-  };
-
+export default class PlayerScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      loading: false,
-      tracks: []
+      track: {}
     };
   }
 
+  async componentWillMount() {
+    await SpotifyModule.initPlayer();
+  }
+
   componentDidMount() {
+      const { navigation } = this.props;
+      
+      const trackUri = navigation.getParam('trackUri', 'NO-URI');
       this.setState({loading:true});
-      SpotifyModule.loadTracks().then((bundle) => {
+      SpotifyModule.loadTrack(trackUri).then((bundle) => {
         this.setState({
            loading:false,
-           tracks: bundle.tracks
+           track: {
+             name: trackUri
+           }
         });
       }).catch((err) => console.log(err));
   }
@@ -47,21 +49,11 @@ export default class HomeScreen extends React.Component {
   // Render any loading content that you like here
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <List>
-          {this.state.tracks.map((track, key) => (
-            <ListItem key={key} onPress={() => this.props.navigation.navigate('Player', {trackId: track.id, trackUri: track.uri})} button={true}>
-              <Body>
-                <Text style={styles.trackName}>{track.name}</Text>
-                <Text note numberOfLines={1}>{track.artists.join(', ')}</Text>
-              </Body>
-              <Right>
-                  <Text>{getTime(track.duration_ms)}</Text>      
-              </Right>
-            </ListItem>
-          ))}
-        </List>
-      </ScrollView>
+      <View>
+        <Text>
+          {this.state.track.name}
+        </Text>
+      </View>
     );
   }
 }

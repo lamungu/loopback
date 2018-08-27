@@ -50,7 +50,6 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
     private static final String REDIRECT_URI = "lamungu-loopback://oauth-callback";
     private static final String TAG = "SpotifyModule";
     private static final int REQUEST_CODE = 1337;
-    private static final int SONG_SELECTION = 7889;
     protected static final long TIME_DELAY = 1000;
     private Pager<PlaylistSimple> playlists;
 
@@ -69,21 +68,15 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
                     if (mSpotifyPromise != null) {
                         AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
                         if (response.getType() == AuthenticationResponse.Type.TOKEN) {
-                            mAccessToken = response.getAccessToken();
-                            // Time when token expires (now + 1 hour)
-                            mExpiresIn =  (double)(new Date().getTime()/1000) + response.getExpiresIn();
                             WritableMap mapBundle = Arguments.createMap();
+                            mAccessToken = response.getAccessToken();
+                            mExpiresIn = (double)(new Date().getTime()/1000) + response.getExpiresIn();
                             mapBundle.putString("accessToken", mAccessToken);
                             mapBundle.putDouble("expiresIn",  mExpiresIn);
                             mSpotifyApi = new SpotifyApi();
                             mSpotifyApi.setAccessToken(mAccessToken);
                             mSpotifyPromise.resolve(mapBundle);
                         }
-                    }
-                    break;
-                case SONG_SELECTION:
-                    if (intent != null && intent.hasExtra("playlistTrackId")) {
-                        Log.d("IM BACK", intent.getStringExtra("playlistTrackId"));
                     }
                     break;
                 default:
@@ -98,47 +91,47 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
         reactContext.addActivityEventListener(mActivityEventListener);
     }
 
+    @ReactMethod
+    public void loadTrack(String trackUri, final Promise promise) {
+        if (mPlayer != null) {
+            WritableMap map = Arguments.createMap();
+            map.putString("trackUri", trackUri);
+            mPlayer.playUri(null, trackUri, 0, 0);
+            promise.resolve(map);
+            return;
+    }
+        promise.reject("E_PLAYER_ERROR", "Player is not initialized!");
+    }
 
+    @ReactMethod
+    public void initPlayer(final Promise promise) {
+        if (mAccessToken != null) {
+            final Config playerConfig = new Config(getCurrentActivity(), mAccessToken, CLIENT_ID);
+            Spotify.getPlayer(playerConfig, getCurrentActivity(), new SpotifyPlayer.InitializationObserver() {
     @Override
-    public void onConnectionMessage(String message) {
-        Log.d(TAG, "Received connection message: " + message);
+                public void onInitialized(SpotifyPlayer spotifyPlayer) {
+                    mPlayer = spotifyPlayer;
+                    mPlayer.addConnectionStateCallback(SpotifyModule.this);
+                    mPlayer.addNotificationCallback(SpotifyModule.this);
+                    WritableMap map = Arguments.createMap();
+                    map.putBoolean("result", true);
+                    promise.resolve(true);
     }
 
     @Override
-    public void onLoggedOut() {
-        Log.d(TAG, "User logged out");
+                public void onError(Throwable throwable) {
+                    Log.e("MainActivity", "Could not initialize player: " + throwable.getMessage());
+                    promise.reject("E_PLAYER_ERROR", throwable.getMessage());
     }
-
-    @Override
-    public void onLoginFailed(Error e) {
-        Log.d(TAG, "Login failed");
+            });
     }
-
-    @Override
-    public void onTemporaryError() {
-        Log.d(TAG, "Temporary error occurred");
-    }
-
-    @Override
-    public void onLoggedIn() {
-        Log.d(TAG, "User logged in");
-    }
-
-    @Override
-    public void onPlaybackError(Error error) {
-        Log.d(TAG, "Playback error received: " + error.name());
-        switch (error) {
-            // Handle error type as necessary
-            default:
-                break;
         }
-    }
 
     @ReactMethod
     public void init(ReadableMap token, final Promise promise) {
         mAccessToken = token.getString("accessToken");
         // Time when token expires (now + 1 hour)
-        mExpiresIn =  token.getDouble("expiresIn");
+        mExpiresIn = token.getDouble("expiresIn");
         mSpotifyApi = new SpotifyApi();
         mSpotifyApi.setAccessToken(mAccessToken);
         promise.resolve(true);
@@ -160,6 +153,7 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
                         TrackSimple track = tracks.items.get(i).track;
                         trackSimpleMap.putString("name", track.name);
                         trackSimpleMap.putString("uri", track.uri);
+                        trackSimpleMap.putString("id", track.id);
                         trackSimpleMap.putString("duration_ms", String.valueOf(track.duration_ms));     
                         // Go through the artists
                         WritableArray artistNames = Arguments.createArray();
@@ -247,6 +241,41 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
         } catch (Exception e) {
             mSpotifyPromise.reject(E_FAILED_TO_SHOW_PICKER, e);
             mSpotifyPromise = null;
+        }
+    }
+
+    @Override
+    public void onConnectionMessage(String message) {
+        Log.d(TAG, "Received connection message: " + message);
+    }
+
+    @Override
+    public void onLoggedOut() {
+        Log.d(TAG, "User logged out");
+    }
+
+    @Override
+    public void onLoginFailed(Error e) {
+        Log.d(TAG, "Login failed");
+    }
+
+    @Override
+    public void onTemporaryError() {
+        Log.d(TAG, "Temporary error occurred");
+    }
+
+    @Override
+    public void onLoggedIn() {
+        Log.d(TAG, "User logged in");
+    }
+
+    @Override
+    public void onPlaybackError(Error error) {
+        Log.d(TAG, "Playback error received: " + error.name());
+        switch (error) {
+            // Handle error type as necessary
+            default:
+                break;
         }
     }
 }
