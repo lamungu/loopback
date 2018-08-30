@@ -11,12 +11,8 @@ import {
 } from "native-base";
 import { DeviceEventEmitter, StyleSheet, View, Text } from "react-native";
 import SpotifyModule from "../modules/SpotifyModule";
+import {getTime} from '../helpers';
 
-const getTime = time => {
-  return (
-    Math.floor(moment.duration(parseInt(time)).asMinutes()) + ':' +(moment.duration(parseInt(time)).seconds() < 10 ? "0" : "") +moment.duration(parseInt(time)).seconds()
-  );
-};
 export default class PlayerScreen extends React.Component {
   constructor() {
     super();
@@ -42,12 +38,8 @@ export default class PlayerScreen extends React.Component {
       console.warn("loading track now");
       SpotifyModule.loadTrack(trackUri)
         .then(bundle => {
-          console.log("track shoould be playing now");
           this.setState({
             loading: false,
-            track: {
-              name: trackUri
-            }
           });
         })
         .catch(err => {
@@ -62,6 +54,8 @@ export default class PlayerScreen extends React.Component {
     return (
       <View>
         <Text>{this.state.track.name}</Text>
+        <Text>{this.state.track.artistName}</Text>
+        <Text>{getTime(this.state.track.durationMs)}</Text>
       </View>
     );
   }

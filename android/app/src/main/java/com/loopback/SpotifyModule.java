@@ -98,7 +98,6 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
 
     @ReactMethod
     public void loadTrack(String trackUri, final Promise promise) {
-        Log.d(TAG, "loading track:" + trackUri);
         if (mPlayer != null) {
             WritableMap map = Arguments.createMap();
             map.putString("trackUri", trackUri);
@@ -192,9 +191,9 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
                 Metadata.Track currentTrack = mPlayer.getMetadata().currentTrack;
 
                 trackSimpleMap.putString("name", currentTrack.name);
-                trackSimpleMap.putString("artist", currentTrack.artistName);
-                trackSimpleMap.putString("albumCover", currentTrack.albumCoverWebUrl);
-                trackSimpleMap.putString("duration_ms", String.valueOf(currentTrack.durationMs));
+                trackSimpleMap.putString("artistName", currentTrack.artistName);
+                trackSimpleMap.putString("albumCoverWebUrl", currentTrack.albumCoverWebUrl);
+                trackSimpleMap.putString("durationMs", String.valueOf(currentTrack.durationMs));
                 sendEvent(getReactApplicationContext(), "player.metadata-changed", trackSimpleMap);
                 Log.d("currentTrack", currentTrack.toString());
                 break;
