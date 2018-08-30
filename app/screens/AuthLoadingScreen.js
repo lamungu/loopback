@@ -48,6 +48,8 @@ export default class AuthLoadingScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+    },
     backgroundVideo: {
         position: 'absolute',
         top: 0,
