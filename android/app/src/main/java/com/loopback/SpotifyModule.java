@@ -2,12 +2,14 @@ package com.loopback;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.Date;
 import java.util.Map;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
@@ -17,12 +19,14 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 import com.spotify.sdk.android.player.Config;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
+import com.spotify.sdk.android.player.Metadata;
 import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
@@ -55,6 +59,7 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
 
     SpotifyApi mSpotifyApi;
     private Promise mSpotifyPromise;
+    private Promise mPlayerPromise;
     private Player mPlayer;
     private String mAccessToken;
     private double mExpiresIn;
@@ -93,13 +98,14 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
 
     @ReactMethod
     public void loadTrack(String trackUri, final Promise promise) {
+        Log.d(TAG, "loading track:" + trackUri);
         if (mPlayer != null) {
             WritableMap map = Arguments.createMap();
             map.putString("trackUri", trackUri);
             mPlayer.playUri(null, trackUri, 0, 0);
             promise.resolve(map);
             return;
-    }
+        }
         promise.reject("E_PLAYER_ERROR", "Player is not initialized!");
     }
 
@@ -108,24 +114,22 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
         if (mAccessToken != null) {
             final Config playerConfig = new Config(getCurrentActivity(), mAccessToken, CLIENT_ID);
             Spotify.getPlayer(playerConfig, getCurrentActivity(), new SpotifyPlayer.InitializationObserver() {
-    @Override
+                @Override
                 public void onInitialized(SpotifyPlayer spotifyPlayer) {
                     mPlayer = spotifyPlayer;
+                    mPlayerPromise = promise;
                     mPlayer.addConnectionStateCallback(SpotifyModule.this);
                     mPlayer.addNotificationCallback(SpotifyModule.this);
-                    WritableMap map = Arguments.createMap();
-                    map.putBoolean("result", true);
-                    promise.resolve(true);
-    }
+                }
 
-    @Override
+                @Override
                 public void onError(Throwable throwable) {
                     Log.e("MainActivity", "Could not initialize player: " + throwable.getMessage());
                     promise.reject("E_PLAYER_ERROR", throwable.getMessage());
-    }
+                }
             });
-    }
         }
+    }
 
     @ReactMethod
     public void init(ReadableMap token, final Promise promise) {
@@ -173,7 +177,7 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
                 }
             });
         } else {
-            promise.reject("No Access Token");
+            promise.reject("E_PLAYER_ERROR","No Access Token");
         }
 
     }
@@ -181,23 +185,19 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
     @Override
     public void onPlaybackEvent(PlayerEvent playerEvent) {
         Log.d(TAG, "Playback event received: " + playerEvent.name());
+        WritableMap trackSimpleMap = Arguments.createMap();
+
         switch (playerEvent) {
-//            // Handle event type as necessary
-//            case kSpPlaybackNotifyMetadataChanged:
-//                Metadata.Track currentTrack = mPlayer.getMetadata().currentTrack;
-//
-//                loopStart = 0;
-//                loopEnd = (int)currentTrack.durationMs/1000;
-////                mRangeBar.setTickCount((int)currentTrack.durationMs/1000 + 2);
-////                mRangeBar.setThumbIndices(loopStart, loopEnd);
-//                mTotalDurationTextView.setText(getTimeFromMillis(currentTrack.durationMs));
-//                mTrackNameTextView.setText(currentTrack.name);
-//                mArtistNameTextView.setText(currentTrack.artistName);
-//                mLoopTextView.setText(getTimeFromMillis((long)loopStart*1000) + " - " + getTimeFromMillis((long)loopEnd*1000));
-//                Picasso.with(getApplicationContext()).load(currentTrack.albumCoverWebUrl).into(mAlbumCoverImageView);
-//                Log.d("TickCount", Integer.toString((int)currentTrack.durationMs/1000 + 2));
-//                Log.d("currentTrack", currentTrack.toString());
-//                break;
+            case kSpPlaybackNotifyMetadataChanged:
+                Metadata.Track currentTrack = mPlayer.getMetadata().currentTrack;
+
+                trackSimpleMap.putString("name", currentTrack.name);
+                trackSimpleMap.putString("artist", currentTrack.artistName);
+                trackSimpleMap.putString("albumCover", currentTrack.albumCoverWebUrl);
+                trackSimpleMap.putString("duration_ms", String.valueOf(currentTrack.durationMs));
+                sendEvent(getReactApplicationContext(), "player.metadata-changed", trackSimpleMap);
+                Log.d("currentTrack", currentTrack.toString());
+                break;
 //            case kSpPlaybackNotifyPlay:
 //                Log.d("Playing", "Changing to pause image");
 //                mPlayImageButton.setImageDrawable(getDrawable(android.R.drawable.ic_media_pause));
@@ -267,6 +267,10 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
     @Override
     public void onLoggedIn() {
         Log.d(TAG, "User logged in");
+        WritableMap map = Arguments.createMap();
+        map.putBoolean("result", true);
+        map.putString("player", "Hyass");
+        mPlayerPromise.resolve(map);
     }
 
     @Override
@@ -277,5 +281,13 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
             default:
                 break;
         }
+    }
+
+    private void sendEvent(ReactContext reactContext,
+                           String eventName,
+                           @Nullable WritableMap params) {
+        reactContext
+                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit(eventName, params);
     }
 }

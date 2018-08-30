@@ -1,5 +1,5 @@
-import React from 'react';
-import moment from 'moment';
+import React from "react";
+import moment from "moment";
 import {
   Button,
   Left,
@@ -8,17 +8,15 @@ import {
   Thumbnail,
   List,
   ListItem
-} from 'native-base';
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
-import SpotifyModule from '../modules/SpotifyModule';
+} from "native-base";
+import { DeviceEventEmitter, StyleSheet, View, Text } from "react-native";
+import SpotifyModule from "../modules/SpotifyModule";
 
-const getTime = (time) => {
-  return Math.floor(moment.duration(parseInt(time)).asMinutes()) + ':' + (moment.duration(parseInt(time)).seconds() < 10 ? '0' : '') + moment.duration(parseInt(time)).seconds();
-}
+const getTime = time => {
+  return (
+    Math.floor(moment.duration(parseInt(time)).asMinutes()) + ':' +(moment.duration(parseInt(time)).seconds() < 10 ? "0" : "") +moment.duration(parseInt(time)).seconds()
+  );
+};
 export default class PlayerScreen extends React.Component {
   constructor() {
     super();
@@ -27,32 +25,43 @@ export default class PlayerScreen extends React.Component {
     };
   }
 
-  async componentWillMount() {
-    await SpotifyModule.initPlayer();
+  componentWillMount() {
+    DeviceEventEmitter.addListener("player.metadata-changed", e => {
+      this.setState({
+        track: { ...e }
+      });
+      console.log(e);
+    });
   }
-
   componentDidMount() {
-      const { navigation } = this.props;
-      
-      const trackUri = navigation.getParam('trackUri', 'NO-URI');
-      this.setState({loading:true});
-      SpotifyModule.loadTrack(trackUri).then((bundle) => {
-        this.setState({
-           loading:false,
-           track: {
-             name: trackUri
-           }
+    const { navigation } = this.props;
+
+    const trackUri = navigation.getParam("trackUri", "NO-URI");
+    this.setState({ loading: true });
+    SpotifyModule.initPlayer().then(() => {
+      console.warn("loading track now");
+      SpotifyModule.loadTrack(trackUri)
+        .then(bundle => {
+          console.log("track shoould be playing now");
+          this.setState({
+            loading: false,
+            track: {
+              name: trackUri
+            }
+          });
+        })
+        .catch(err => {
+          console.log("an error occured!");
+          console.log(err);
         });
-      }).catch((err) => console.log(err));
+    });
   }
 
   // Render any loading content that you like here
   render() {
     return (
       <View>
-        <Text>
-          {this.state.track.name}
-        </Text>
+        <Text>{this.state.track.name}</Text>
       </View>
     );
   }
@@ -60,41 +69,41 @@ export default class PlayerScreen extends React.Component {
 
 const styles = StyleSheet.create({
   trackName: {
-      fontSize:16,
-      fontWeight:"700",
+    fontSize: 16,
+    fontWeight: "700"
   },
   backgroundVideo: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0
   },
   body: {
-      flexDirection: "row", 
-      flex: 1,
-      justifyContent: "center",
-      alignItems: 'center'
+    flexDirection: "row",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   },
   button: {
-      alignSelf:'center'
+    alignSelf: "center"
   },
   alignWrap: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems:"center"
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   },
   welcome: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    textAlign: "center",
+    margin: 10
   },
   text: {
-    color: '#fff'
+    color: "#fff"
   },
   instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    textAlign: "center",
+    color: "#333333",
+    marginBottom: 5
+  }
 });

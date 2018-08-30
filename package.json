@@ -8,6 +8,8 @@
     "build-android": "./android/gradlew build"
   },
   "dependencies": {
+    "eslint-plugin-react": "^7.11.1",
+    "global": "^4.3.2",
     "moment": "^2.22.2",
     "native-base": "^2.7.2",
     "react": "16.3.1",
