@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import {getTime} from '../helpers'
 import {
   StyleSheet,
   View,
   Text,
+  Image,
 } from 'react-native';
 
 export default class TrackBox extends Component {
@@ -11,14 +13,17 @@ export default class TrackBox extends Component {
         <View style={styles.container}>
           <View style={[styles.trackBox]}>
             <View style={[styles.trackAlbum]}>
-              <View style={[styles.picture]}></View>
+                <Image
+                    style={[styles.picture]}
+                    source={{uri: this.props.track.albumCoverWebUrl}}
+                />
             </View>
             <View style={[styles.trackDetails]}>
               <Text style={[styles.trackName]}>{this.props.track.name}</Text>
               <Text style={[styles.trackArtist]}>{this.props.track.artistName}</Text>
             </View>
             <View style={[styles.trackDuration]}>
-              <Text>0:00/{getTime(this.state.track.durationMs)}</Text>
+              <Text>0:00/{getTime(this.props.track.durationMs)}</Text>
             </View>
           </View>
         </View>
@@ -60,7 +65,6 @@ export default class TrackBox extends Component {
       width: 55,
       height: 55,
       borderRadius: 50,
-      backgroundColor: '#2196F3'
     }
   });
   

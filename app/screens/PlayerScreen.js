@@ -10,7 +10,7 @@ import {
   List,
   ListItem
 } from "native-base";
-import { Image, DeviceEventEmitter, StyleSheet, View, Text } from "react-native";
+import { DeviceEventEmitter, StyleSheet, View, Text } from "react-native";
 import SpotifyModule from "../modules/SpotifyModule";
 import {getTime} from '../helpers';
 
