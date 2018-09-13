@@ -1,18 +1,14 @@
 import React from 'react';
 import moment from 'moment';
 import {
-  Button,
-  Left,
   Right,
   Body,
-  Thumbnail,
   List,
   ListItem
 } from 'native-base';
 import {
   ScrollView,
   StyleSheet,
-  View,
   Text,
   AsyncStorage
 } from 'react-native';
@@ -34,14 +30,24 @@ export default class HomeScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
       this.setState({loading:true});
-      SpotifyModule.loadTracks().then((bundle) => {
+      this.props.navigation.navigate('Player', {trackId: 'spotify:track:0zXGYS4MVxtxCFmhCtDJsr', trackUri: 'spotify:track:0zXGYS4MVxtxCFmhCtDJsr'});
+      let cachedTracks = await AsyncStorage.getItem('tracks');
+      if (!cachedTracks) {
+        SpotifyModule.loadTracks().then(async (bundle) => {
+            await AsyncStorage.setItem('tracks', JSON.stringify(bundle.tracks))
+            this.setState({
+                loading:false,
+                tracks: bundle.tracks
+            });
+        }).catch((err) => console.log(err));
+      } else {
         this.setState({
-           loading:false,
-           tracks: bundle.tracks
+            loading:false,
+            tracks: JSON.parse(cachedTracks)
         });
-      }).catch((err) => console.log(err));
+      }
   }
 
   // Render any loading content that you like here

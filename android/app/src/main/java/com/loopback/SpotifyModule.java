@@ -101,6 +101,7 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
         if (mPlayer != null) {
             WritableMap map = Arguments.createMap();
             map.putString("trackUri", trackUri);
+            Log.d(TAG, "changing to track: " + trackUri);
             mPlayer.playUri(null, trackUri, 0, 0);
             promise.resolve(map);
             return;
@@ -110,7 +111,11 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
 
     @ReactMethod
     public void initPlayer(final Promise promise) {
-        if (mAccessToken != null) {
+        if (mPlayer != null) {
+            Log.d(TAG, "ive got this working");
+            promise.resolve("player already initialized");
+        } else if (mAccessToken != null) {
+            Log.d(TAG, "player was not initialized, had to do this first");
             final Config playerConfig = new Config(getCurrentActivity(), mAccessToken, CLIENT_ID);
             Spotify.getPlayer(playerConfig, getCurrentActivity(), new SpotifyPlayer.InitializationObserver() {
                 @Override
@@ -127,6 +132,9 @@ public class SpotifyModule extends ReactContextBaseJavaModule implements
                     promise.reject("E_PLAYER_ERROR", throwable.getMessage());
                 }
             });
+        } else {
+            Log.d(TAG, "sumn went wrong bruh");
+            promise.reject("problem: access token null?");
         }
     }
 

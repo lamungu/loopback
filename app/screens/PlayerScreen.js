@@ -1,15 +1,16 @@
 import React from "react";
-import moment from "moment";
+import {Slider, Button} from "react-native-elements";
+import TrackBox from '../components/TrackBox';
 import {
-  Button,
   Left,
   Right,
   Body,
   Thumbnail,
+  Icon,
   List,
   ListItem
 } from "native-base";
-import { DeviceEventEmitter, StyleSheet, View, Text } from "react-native";
+import { Image, DeviceEventEmitter, StyleSheet, View, Text } from "react-native";
 import SpotifyModule from "../modules/SpotifyModule";
 import {getTime} from '../helpers';
 
@@ -17,25 +18,28 @@ export default class PlayerScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      track: {}
+      track: {},
+      value: 0,
     };
   }
 
   componentWillMount() {
     DeviceEventEmitter.addListener("player.metadata-changed", e => {
+      console.log(e);
       this.setState({
         track: { ...e }
       });
-      console.log(e);
     });
   }
+
   componentDidMount() {
     const { navigation } = this.props;
 
+    console.log("its coming bois");
     const trackUri = navigation.getParam("trackUri", "NO-URI");
     this.setState({ loading: true });
     SpotifyModule.initPlayer().then(() => {
-      console.warn("loading track now");
+      console.warn(trackUri);
       SpotifyModule.loadTrack(trackUri)
         .then(bundle => {
           this.setState({
@@ -53,9 +57,9 @@ export default class PlayerScreen extends React.Component {
   render() {
     return (
       <View>
-        <Text>{this.state.track.name}</Text>
-        <Text>{this.state.track.artistName}</Text>
-        <Text>{getTime(this.state.track.durationMs)}</Text>
+        {Object.keys(this.state.track).length > 0 && (
+            <TrackBox track={this.state.track}/>
+        )}
       </View>
     );
   }
