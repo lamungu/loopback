@@ -6,6 +6,11 @@ import {
   Text,
   Image,
 } from 'react-native';
+import {
+    Button,
+    Icon,
+    Slider
+} from 'react-native-elements';
 
 export default class TrackBox extends Component {
     render() {
@@ -26,6 +31,14 @@ export default class TrackBox extends Component {
               <Text>0:00/{getTime(this.props.track.durationMs)}</Text>
             </View>
           </View>
+          <View style={[styles.trackSlider]}>
+                <Slider/>
+          </View>
+          <View style={[styles.trackControls]}>    
+            <Button icon={{ name: 'replay-5', color: '#000', size: 75 }} backgroundColor="transparent" buttonStyle={[ styles.trackControlSmall ]}/>
+            <Button icon={{ name: 'play-circle-outline', color: '#000', size: 100 }} backgroundColor="transparent" buttonStyle={[ styles.trackControlLarge ]}/>
+            <Button icon={{ name: 'forward-5', color: '#000', size: 75 }} backgroundColor="transparent" buttonStyle={[ styles.trackControlSmall ]}/>
+          </View>
         </View>
       );
     }
@@ -43,6 +56,25 @@ export default class TrackBox extends Component {
       height: 120,
       flexDirection: 'row',
     },
+    trackSlider: {
+      height: 100,
+      paddingLeft: 40,
+      paddingRight: 40,
+    },
+    trackControls: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      paddingLeft: 40,
+      paddingRight: 40,
+    },
+    trackControlLarge: {
+      width: 126,
+      height: 126
+    },
+    trackControlSmall: {
+      width: 100,
+      height: 100
+    },
     trackName: {
     },
     trackArtist: {
@@ -53,7 +85,7 @@ export default class TrackBox extends Component {
       justifyContent: 'center'
     },
     trackDuration: {
-      flex:2,
+      flex: 2,
       flexDirection: 'column',
       justifyContent: 'center'
     },
